@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>KR&BR - منصة بيع البرمجيات</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+</head>
+<body>
+  <!-- Hero Slideshow -->
+  <div id="hero-slideshow" class="hero-slideshow">
+    <div class="slide active" style="background:linear-gradient(135deg,#0f0c29,#302b63,#24243e)"></div>
+    <div class="slide" style="background:linear-gradient(135deg,#1a1a2e,#16213e,#0f3460)"></div>
+    <div class="slide" style="background:linear-gradient(135deg,#0d0d0d,#1a0533,#2d1b69)"></div>
+    <div class="slideshow-overlay"></div>
+  </div>
+
+  <!-- Navbar -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-brand">
+      <span class="brand-kr">KR</span><span class="brand-amp">&</span><span class="brand-br">BR</span>
+    </div>
+    <div class="nav-tabs" id="nav-tabs">
+      <button class="tab-btn active" data-tab="websites"><i class="fas fa-globe"></i> مواقع إلكترونية</button>
+      <button class="tab-btn" data-tab="games"><i class="fas fa-gamepad"></i> ألعاب</button>
+      <button class="tab-btn" data-tab="mobile"><i class="fas fa-mobile-alt"></i> تطبيقات موبايل</button>
+      <button class="tab-btn" data-tab="desktop"><i class="fas fa-desktop"></i> برامج Desktop</button>
+    </div>
+    <div class="nav-actions">
+      <button class="btn-login" onclick="openModal('login')"><i class="fas fa-sign-in-alt"></i> تسجيل الدخول</button>
+      <button class="btn-register" onclick="openModal('register')"><i class="fas fa-user-plus"></i> إنشاء حساب</button>
+    </div>
+  </nav>
+
+  <!-- Hero Content -->
+  <header class="hero-content">
+    <h1 class="hero-title">منصة <span class="brand-highlight">KR&BR</span></h1>
+    <p class="hero-sub">أفضل منصة لبيع وشراء البرمجيات في العالم العربي</p>
+    <div class="hero-btns">
+      <button class="btn-primary" onclick="openModal('register')">ابدأ الآن</button>
+      <button class="btn-outline" onclick="scrollToProducts()">تصفح المنتجات</button>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><span class="stat-num">+5000</span><span>منتج</span></div>
+      <div class="stat"><span class="stat-num">+1200</span><span>بائع</span></div>
+      <div class="stat"><span class="stat-num">+30K</span><span>مستخدم</span></div>
+    </div>
+  </header>
+
+  <!-- Products Section -->
+  <section class="products-section" id="products">
+    <div class="section-tabs">
+      <button class="stab active" data-tab="websites"><i class="fas fa-globe"></i> مواقع إلكترونية</button>
+      <button class="stab" data-tab="games"><i class="fas fa-gamepad"></i> ألعاب</button>
+      <button class="stab" data-tab="mobile"><i class="fas fa-mobile-alt"></i> تطبيقات موبايل</button>
+      <button class="stab" data-tab="desktop"><i class="fas fa-desktop"></i> برامج Desktop</button>
+    </div>
+
+    <div class="tab-content active" id="tab-websites">
+      <div class="products-grid" id="grid-websites"></div>
+    </div>
+    <div class="tab-content" id="tab-games">
+      <div class="products-grid" id="grid-games"></div>
+    </div>
+    <div class="tab-content" id="tab-mobile">
+      <div class="products-grid" id="grid-mobile"></div>
+    </div>
+    <div class="tab-content" id="tab-desktop">
+      <div class="products-grid" id="grid-desktop"></div>
+    </div>
+  </section>
+
+  <!-- AI Security Badge -->
+  <div class="ai-badge">
+    <i class="fas fa-shield-alt"></i>
+    <span>محمي بنظام ذكاء اصطناعي متقدم</span>
+    <div class="ai-pulse"></div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-brand"><span class="brand-kr">KR</span><span class="brand-amp">&</span><span class="brand-br">BR</span></div>
+    <p>© 2026 KR&BR. جميع الحقوق محفوظة.</p>
+    <p class="footer-note">يتم خصم 10% من كل عملية بيع كعمولة للمنصة</p>
+  </footer>
+
+  <!-- LOGIN MODAL -->
+  <div class="modal-overlay" id="modal-login">
+    <div class="modal">
+      <button class="modal-close" onclick="closeModal('login')"><i class="fas fa-times"></i></button>
+      <div class="modal-logo"><span class="brand-kr">KR</span><span class="brand-amp">&</span><span class="brand-br">BR</span></div>
+      <h2>تسجيل الدخول</h2>
+      <form id="login-form" onsubmit="handleLogin(event)">
+        <div class="form-group">
+          <label><i class="fas fa-envelope"></i> البريد الإلكتروني</label>
+          <input type="email" id="login-email" placeholder="example@email.com" required/>
+        </div>
+        <div class="form-group">
+          <label><i class="fas fa-lock"></i> كلمة المرور</label>
+          <input type="password" id="login-pass" placeholder="••••••••" required/>
+        </div>
+        <div id="login-error" class="form-error"></div>
+        <button type="submit" class="btn-submit">دخول <i class="fas fa-arrow-left"></i></button>
+      </form>
+      <p class="modal-switch">ليس لديك حساب؟ <a href="#" onclick="switchModal('login','register')">إنشاء حساب</a></p>
+    </div>
+  </div>
+
+  <!-- REGISTER MODAL -->
+  <div class="modal-overlay" id="modal-register">
+    <div class="modal">
+      <button class="modal-close" onclick="closeModal('register')"><i class="fas fa-times"></i></button>
+      <div class="modal-logo"><span class="brand-kr">KR</span><span class="brand-amp">&</span><span class="brand-br">BR</span></div>
+      <h2>إنشاء حساب جديد</h2>
+      <form id="register-form" onsubmit="handleRegister(event)">
+        <div class="form-group">
+          <label><i class="fas fa-user"></i> الاسم الكامل</label>
+          <input type="text" id="reg-name" placeholder="الاسم الكامل" required/>
+        </div>
+        <div class="form-group">
+          <label><i class="fas fa-envelope"></i> البريد الإلكتروني</label>
+          <input type="email" id="reg-email" placeholder="example@email.com" required/>
+        </div>
+        <div class="form-group">
+          <label><i class="fas fa-lock"></i> كلمة المرور</label>
+          <input type="password" id="reg-pass" placeholder="••••••••" required minlength="8"/>
+        </div>
+        <div class="form-group">
+          <label><i class="fas fa-user-tag"></i> نوع الحساب</label>
+          <div class="account-type-selector">
+            <label class="type-card" id="type-buyer">
+              <input type="radio" name="account-type" value="buyer" checked/>
+              <i class="fas fa-shopping-cart"></i>
+              <span>مشتري برامج</span>
+              <small>تصفح وشراء البرمجيات</small>
+            </label>
+            <label class="type-card" id="type-seller">
+              <input type="radio" name="account-type" value="seller"/>
+              <i class="fas fa-store"></i>
+              <span>بائع برمجيات</span>
+              <small>بيع منتجاتك البرمجية</small>
+            </label>
+          </div>
+        </div>
+        <div id="reg-error" class="form-error"></div>
+        <button type="submit" class="btn-submit">إنشاء الحساب <i class="fas fa-arrow-left"></i></button>
+      </form>
+      <p class="modal-switch">لديك حساب؟ <a href="#" onclick="switchModal('register','login')">تسجيل الدخول</a></p>
+    </div>
+  </div>
+
+  <!-- PRODUCT DETAIL MODAL -->
+  <div class="modal-overlay" id="modal-product">
+    <div class="modal modal-wide">
+      <button class="modal-close" onclick="closeModal('product')"><i class="fas fa-times"></i></button>
+      <div id="product-detail-content"></div>
+    </div>
+  </div>
+
+  <!-- AI MONITOR OVERLAY -->
+  <div class="ai-monitor" id="ai-monitor">
+    <i class="fas fa-robot"></i>
+    <span id="ai-msg">النظام آمن ✓</span>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

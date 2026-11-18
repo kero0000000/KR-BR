@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>لوحة الأدمن - KR&BR</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link rel="stylesheet" href="admin.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+</head>
+<body class="admin-body">
+
+  <nav class="admin-nav">
+    <div class="nav-brand"><span class="brand-kr">KR</span><span class="brand-amp">&</span><span class="brand-br">BR</span> <span class="admin-badge">ADMIN</span></div>
+    <div class="admin-nav-center">لوحة تحكم المدير</div>
+    <div class="admin-nav-right">
+      <div class="ai-status"><div class="ai-pulse"></div> AI مراقب</div>
+      <a href="index.html" class="btn-view-site"><i class="fas fa-eye"></i> عرض الموقع</a>
+    </div>
+  </nav>
+
+  <div class="admin-layout">
+    <!-- Sidebar -->
+    <aside class="admin-sidebar">
+      <nav class="admin-snav">
+        <button class="asnav active" data-panel="dashboard"><i class="fas fa-tachometer-alt"></i> لوحة التحكم</button>
+        <button class="asnav" data-panel="colors"><i class="fas fa-palette"></i> ألوان الموقع</button>
+        <button class="asnav" data-panel="slideshow"><i class="fas fa-images"></i> صور الـ Slideshow</button>
+        <button class="asnav" data-panel="users"><i class="fas fa-users"></i> المستخدمون</button>
+        <button class="asnav" data-panel="products"><i class="fas fa-box"></i> المنتجات</button>
+        <button class="asnav" data-panel="transactions"><i class="fas fa-exchange-alt"></i> المعاملات</button>
+        <button class="asnav" data-panel="visa"><i class="fas fa-credit-card"></i> فيزا المدير</button>
+        <button class="asnav" data-panel="ai"><i class="fas fa-robot"></i> نظام الذكاء الاصطناعي</button>
+      </nav>
+    </aside>
+
+    <!-- Main -->
+    <main class="admin-main">
+
+      <!-- Dashboard -->
+      <div class="apanel active" id="apanel-dashboard">
+        <h2 class="apanel-title"><i class="fas fa-tachometer-alt"></i> نظرة عامة</h2>
+        <div class="admin-stats" id="admin-stats"></div>
+        <div class="admin-chart-area">
+          <h3>آخر المعاملات</h3>
+          <div id="admin-recent-tx"></div>
+        </div>
+      </div>
+
+      <!-- Colors -->
+      <div class="apanel" id="apanel-colors">
+        <h2 class="apanel-title"><i class="fas fa-palette"></i> تخصيص ألوان الموقع</h2>
+        <div class="color-grid">
+          <div class="color-item">
+            <label>اللون الرئيسي</label>
+            <div class="color-picker-wrap">
+              <input type="color" id="color-primary" value="#7c3aed" oninput="previewColor('primary', this.value)"/>
+              <span id="color-primary-val">#7c3aed</span>
+            </div>
+            <div class="color-preview" id="prev-primary" style="background:#7c3aed"></div>
+          </div>
+          <div class="color-item">
+            <label>لون التمييز</label>
+            <div class="color-picker-wrap">
+              <input type="color" id="color-accent" value="#f59e0b" oninput="previewColor('accent', this.value)"/>
+              <span id="color-accent-val">#f59e0b</span>
+            </div>
+            <div class="color-preview" id="prev-accent" style="background:#f59e0b"></div>
+          </div>
+        </div>
+        <div class="color-presets">
+          <h4>ثيمات جاهزة</h4>
+          <div class="presets-row">
+            <button class="preset-btn" onclick="applyPreset('#7c3aed','#f59e0b')" style="background:linear-gradient(135deg,#7c3aed,#f59e0b)">بنفسجي ذهبي</button>
+            <button class="preset-btn" onclick="applyPreset('#0ea5e9','#f43f5e')" style="background:linear-gradient(135deg,#0ea5e9,#f43f5e)">أزرق أحمر</button>
+            <button class="preset-btn" onclick="applyPreset('#10b981','#f59e0b')" style="background:linear-gradient(135deg,#10b981,#f59e0b)">أخضر ذهبي</button>
+            <button class="preset-btn" onclick="applyPreset('#ef4444','#f97316')" style="background:linear-gradient(135deg,#ef4444,#f97316)">أحمر برتقالي</button>
+            <button class="preset-btn" onclick="applyPreset('#6366f1','#ec4899')" style="background:linear-gradient(135deg,#6366f1,#ec4899)">نيلي وردي</button>
+          </div>
+        </div>
+        <button class="btn-save-colors" onclick="saveColors()"><i class="fas fa-save"></i> حفظ الألوان</button>
+      </div>
+
+      <!-- Slideshow Images -->
+      <div class="apanel" id="apanel-slideshow">
+        <h2 class="apanel-title"><i class="fas fa-images"></i> صور الـ Slideshow المتحرك</h2>
+        <p class="apanel-desc">هذه الصور ستظهر في خلفية جميع صفحات الموقع كـ slideshow متحرك</p>
+        <div class="slideshow-manager">
+          <div class="slide-slots" id="slide-slots"></div>
+          <div class="add-slide-area">
+            <label class="add-slide-btn" for="slide-upload">
+              <i class="fas fa-plus"></i>
+              <span>إضافة صورة جديدة</span>
+              <input type="file" id="slide-upload" accept="image/*" multiple onchange="uploadSlideImages(this)" style="display:none"/>
+            </label>
+          </div>
+        </div>
+        <button class="btn-save-colors" onclick="saveSlideshow()"><i class="fas fa-save"></i> حفظ الصور</button>
+      </div>
+
+      <!-- Users -->
+      <div class="apanel" id="apanel-users">
+        <h2 class="apanel-title"><i class="fas fa-users"></i> إدارة المستخدمين</h2>
+        <div id="users-table"></div>
+      </div>
+
+      <!-- Products -->
+      <div class="apanel" id="apanel-products">
+        <h2 class="apanel-title"><i class="fas fa-box"></i> إدارة المنتجات</h2>
+        <div id="products-table"></div>
+      </div>
+
+      <!-- Transactions -->
+      <div class="apanel" id="apanel-transactions">
+        <h2 class="apanel-title"><i class="fas fa-exchange-alt"></i> جميع المعاملات</h2>
+        <div class="tx-summary" id="tx-summary"></div>
+        <div id="all-transactions"></div>
+      </div>
+
+      <!-- Admin Visa -->
+      <div class="apanel" id="apanel-visa">
+        <h2 class="apanel-title"><i class="fas fa-credit-card"></i> فيزا المدير (استلام العمولات)</h2>
+        <p class="apanel-desc">يتم إرسال 10% من كل عملية بيع تلقائياً لهذه البطاقة</p>
+        <div class="visa-card-preview" id="admin-visa-preview"></div>
+        <form onsubmit="saveAdminVisa(event)">
+          <div class="form-group">
+            <label>رقم البطاقة</label>
+            <input type="text" id="admin-visa-num" placeholder="XXXX XXXX XXXX XXXX" maxlength="19" oninput="formatAdminCard(this)"/>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>تاريخ الانتهاء</label>
+              <input type="text" id="admin-visa-exp" placeholder="MM/YY" maxlength="5"/>
+            </div>
+            <div class="form-group">
+              <label>CVV</label>
+              <input type="password" id="admin-visa-cvv" placeholder="•••" maxlength="3"/>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>اسم حامل البطاقة</label>
+            <input type="text" id="admin-visa-name" placeholder="اسم المدير"/>
+          </div>
+          <div class="commission-earned">
+            <i class="fas fa-coins"></i>
+            إجمالي العمولات المستلمة: <strong id="total-commission">$0.00</strong>
+          </div>
+          <button type="submit" class="btn-save-colors"><i class="fas fa-save"></i> حفظ بطاقة المدير</button>
+        </form>
+      </div>
+
+      <!-- AI System -->
+      <div class="apanel" id="apanel-ai">
+        <h2 class="apanel-title"><i class="fas fa-robot"></i> نظام الذكاء الاصطناعي للمراقبة</h2>
+        <div class="ai-dashboard">
+          <div class="ai-status-card">
+            <div class="ai-status-icon"><i class="fas fa-shield-alt"></i></div>
+            <div class="ai-status-text">
+              <div class="ai-status-title">حالة النظام</div>
+              <div class="ai-status-val" style="color:var(--success)">آمن ✓</div>
+            </div>
+          </div>
+          <div class="ai-metrics" id="ai-metrics"></div>
+          <div class="ai-log">
+            <h4><i class="fas fa-list"></i> سجل الأحداث الأمنية</h4>
+            <div id="ai-log-list"></div>
+          </div>
+          <div class="ai-rules">
+            <h4><i class="fas fa-cog"></i> قواعد الحماية المفعّلة</h4>
+            <div class="rules-list">
+              <div class="rule-item active"><i class="fas fa-check-circle"></i> الحماية من SQL Injection</div>
+              <div class="rule-item active"><i class="fas fa-check-circle"></i> الحماية من XSS</div>
+              <div class="rule-item active"><i class="fas fa-check-circle"></i> تشفير كلمات المرور</div>
+              <div class="rule-item active"><i class="fas fa-check-circle"></i> مراقبة المعاملات المشبوهة</div>
+              <div class="rule-item active"><i class="fas fa-check-circle"></i> التحقق من صحة البيانات</div>
+              <div class="rule-item active"><i class="fas fa-check-circle"></i> حماية CSRF</div>
+              <div class="rule-item active"><i class="fas fa-check-circle"></i> تحديد معدل الطلبات</div>
+              <div class="rule-item active"><i class="fas fa-check-circle"></i> مراقبة محاولات تسجيل الدخول</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+  <script src="admin.js"></script>
+</body>
+</html>
