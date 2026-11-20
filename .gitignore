@@ -1,0 +1,9 @@
+# Secrets — never commit
+.env
+
+# Python
+__pycache__/
+*.pyc
+
+# Legacy SQLite (project now uses MySQL)
+*.db
